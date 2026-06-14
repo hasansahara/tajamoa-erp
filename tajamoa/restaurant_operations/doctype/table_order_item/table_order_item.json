@@ -1,0 +1,29 @@
+{
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": ["menu_item","item_name_ar","qty","unit_price","modifiers_total","line_total","modifiers_json","modifiers_display","item_notes","kitchen_station","kds_status"],
+ "fields": [
+  {"fieldname":"menu_item","fieldtype":"Link","label":"Menu Item","options":"Menu Item","reqd":1,"in_list_view":1,"columns":3},
+  {"fieldname":"item_name_ar","fieldtype":"Data","label":"الاسم","fetch_from":"menu_item.display_name_ar","read_only":1,"in_list_view":1,"columns":3},
+  {"fieldname":"qty","fieldtype":"Float","label":"الكمية","default":"1","reqd":1,"in_list_view":1,"columns":1},
+  {"fieldname":"unit_price","fieldtype":"Currency","label":"السعر","reqd":1,"in_list_view":1,"columns":2},
+  {"fieldname":"modifiers_total","fieldtype":"Currency","label":"إضافات","default":"0","read_only":1,"in_list_view":1,"columns":1},
+  {"fieldname":"line_total","fieldtype":"Currency","label":"الإجمالي","read_only":1,"in_list_view":1,"columns":2},
+  {"fieldname":"modifiers_json","fieldtype":"Long Text","label":"Modifiers JSON"},
+  {"fieldname":"modifiers_display","fieldtype":"Small Text","label":"الإضافات","read_only":1},
+  {"fieldname":"item_notes","fieldtype":"Data","label":"ملاحظات"},
+  {"fieldname":"kitchen_station","fieldtype":"Data","label":"Kitchen Station","fetch_from":"menu_item.kitchen_station","read_only":1},
+  {"fieldname":"kds_status","fieldtype":"Select","label":"KDS","options":"Pending\nIn Progress\nReady\nServed","default":"Pending","in_list_view":1,"columns":2}
+ ],
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Restaurant Operations",
+ "name": "Table Order Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

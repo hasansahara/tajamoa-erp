@@ -1,0 +1,31 @@
+{
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "issingle": 1,
+ "field_order": ["jareb_section","jareb_api_url","jareb_api_key","col_break_1","jareb_webhook_secret","jareb_brand_id","general_section","default_vat_rate","auto_send_to_kds","col_break_2","daily_report_emails"],
+ "fields": [
+  {"fieldname":"jareb_section","fieldtype":"Section Break","label":"Jareb Tech"},
+  {"fieldname":"jareb_api_url","fieldtype":"Data","label":"API URL","default":"https://api.jarebtech.com/v1"},
+  {"fieldname":"jareb_api_key","fieldtype":"Password","label":"API Key"},
+  {"fieldname":"col_break_1","fieldtype":"Column Break"},
+  {"fieldname":"jareb_webhook_secret","fieldtype":"Password","label":"Webhook Secret"},
+  {"fieldname":"jareb_brand_id","fieldtype":"Data","label":"Default Brand ID"},
+  {"fieldname":"general_section","fieldtype":"Section Break","label":"General"},
+  {"fieldname":"default_vat_rate","fieldtype":"Float","label":"VAT Rate %","default":"15"},
+  {"fieldname":"auto_send_to_kds","fieldtype":"Check","label":"Auto Send to KDS","default":"1"},
+  {"fieldname":"col_break_2","fieldtype":"Column Break"},
+  {"fieldname":"daily_report_emails","fieldtype":"Small Text","label":"Daily Report Emails","description":"Comma separated emails"}
+ ],
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Restaurant Operations",
+ "name": "Tajamoa Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"permlevel":0}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

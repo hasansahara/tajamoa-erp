@@ -1,0 +1,36 @@
+{
+ "autoname": "field:table_code",
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": ["table_name","table_code","brand","floor_section","col_break_1","capacity","status","current_order","is_active","pos_x","pos_y"],
+ "fields": [
+  {"fieldname":"table_name","fieldtype":"Data","label":"Table Name","reqd":1,"in_list_view":1},
+  {"fieldname":"table_code","fieldtype":"Data","label":"Code","reqd":1,"unique":1},
+  {"fieldname":"brand","fieldtype":"Link","label":"Brand","options":"Brand","reqd":1,"in_list_view":1},
+  {"fieldname":"floor_section","fieldtype":"Data","label":"Floor / Area"},
+  {"fieldname":"col_break_1","fieldtype":"Column Break"},
+  {"fieldname":"capacity","fieldtype":"Int","label":"Capacity","default":"4"},
+  {"fieldname":"status","fieldtype":"Select","label":"Status","options":"Available\nOccupied\nReserved\nCleaning","default":"Available","in_list_view":1},
+  {"fieldname":"current_order","fieldtype":"Link","label":"Current Order","options":"Table Order","read_only":1},
+  {"fieldname":"is_active","fieldtype":"Check","label":"Active","default":"1"},
+  {"fieldname":"pos_x","fieldtype":"Float","label":"X Position","default":"0"},
+  {"fieldname":"pos_y","fieldtype":"Float","label":"Y Position","default":"0"}
+ ],
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Restaurant Operations",
+ "name": "Dining Table",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1,"permlevel":0},
+  {"role":"Brand Manager","read":1,"write":1,"permlevel":0},
+  {"role":"Cashier","read":1,"write":1,"permlevel":0}
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "table_name",
+ "track_changes": 1
+}

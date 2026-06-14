@@ -1,0 +1,25 @@
+{
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": ["option_name_ar","option_name_en","price_addition","is_default","is_available","sku","calories"],
+ "fields": [
+  {"fieldname":"option_name_ar","fieldtype":"Data","label":"الخيار","reqd":1,"in_list_view":1,"columns":3},
+  {"fieldname":"option_name_en","fieldtype":"Data","label":"Option","reqd":1,"in_list_view":1,"columns":3},
+  {"fieldname":"price_addition","fieldtype":"Currency","label":"Extra Price","default":"0","in_list_view":1,"columns":2},
+  {"fieldname":"is_default","fieldtype":"Check","label":"Default","default":"0","in_list_view":1,"columns":1},
+  {"fieldname":"is_available","fieldtype":"Check","label":"Available","default":"1","in_list_view":1,"columns":1},
+  {"fieldname":"sku","fieldtype":"Data","label":"Item Code"},
+  {"fieldname":"calories","fieldtype":"Float","label":"Calories"}
+ ],
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Restaurant Operations",
+ "name": "Modifier Option",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}
