@@ -2,7 +2,7 @@ app_name = "tajamoa"
 app_title = "Tajamoa Group ERP"
 app_publisher = "Tajamoa Group"
 app_description = "Multi-Brand Restaurant & Cloud Kitchen ERP"
-app_email = "erp@tajamoa.com"
+app_email = "h-m-m@outlook.com"
 app_license = "MIT"
 app_version = "1.0.0"
 
