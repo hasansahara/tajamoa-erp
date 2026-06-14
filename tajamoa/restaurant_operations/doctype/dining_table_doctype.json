@@ -1,0 +1,86 @@
+{
+  "name": "Dining Table",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "naming_rule": "By fieldname",
+  "autoname": "field:table_code",
+  "title_field": "table_name",
+  "fields": [
+    {
+      "fieldname": "table_name",
+      "fieldtype": "Data",
+      "label": "Table Name / Number",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "table_code",
+      "fieldtype": "Data",
+      "label": "Table Code",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "floor_section",
+      "fieldtype": "Data",
+      "label": "Floor / Area",
+      "description": "e.g. Ground Floor, Outdoor, VIP"
+    },
+    {
+      "fieldname": "col_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "capacity",
+      "fieldtype": "Int",
+      "label": "Capacity (seats)",
+      "default": "4"
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Available\nOccupied\nReserved\nCleaning",
+      "default": "Available",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "current_order",
+      "fieldtype": "Link",
+      "label": "Current Order",
+      "options": "Table Order",
+      "read_only": 1
+    },
+    {
+      "fieldname": "pos_x",
+      "fieldtype": "Float",
+      "label": "X Position (Floor Plan)",
+      "default": "0"
+    },
+    {
+      "fieldname": "pos_y",
+      "fieldtype": "Float",
+      "label": "Y Position (Floor Plan)",
+      "default": "0"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Active",
+      "default": "1"
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Brand Manager", "read": 1, "write": 1},
+    {"role": "Cashier", "read": 1, "write": 1}
+  ]
+}

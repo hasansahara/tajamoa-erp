@@ -1,258 +1,98 @@
 app_name = "tajamoa"
 app_title = "Tajamoa Group ERP"
-app_publisher = "Hasan Al Muhaimed"
-app_description = "Multi-Brand Restaurant & Cloud Kitchen"
-app_email = "h-m-m@outlook.com"
-app_license = "mit"
+app_publisher = "Tajamoa Group"
+app_description = "Multi-Brand Restaurant & Cloud Kitchen ERP"
+app_email = "erp@tajamoa.com"
+app_license = "MIT"
+app_version = "1.0.0"
 
-# Apps
-# ------------------
+# ─── Modules ────────────────────────────────────────────────────
+required_apps = ["frappe", "erpnext"]
 
-# required_apps = []
+# ─── Webhook Routes ─────────────────────────────────────────────
+website_route_rules = [
+    {
+        "from_route": "/api/jareb/webhook",
+        "to_route": "tajamoa.restaurant_operations.api.jareb_webhook.receive",
+    },
+    {
+        "from_route": "/api/menu/sync/<brand_code>",
+        "to_route": "tajamoa.restaurant_operations.api.menu_sync.push_menu",
+    },
+]
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "tajamoa",
-# 		"logo": "/assets/tajamoa/logo.png",
-# 		"title": "Tajamoa Group ERP",
-# 		"route": "/tajamoa",
-# 		"has_permission": "tajamoa.api.permission.has_app_permission"
-# 	}
-# ]
+# ─── Fixtures (exported with bench export-fixtures) ─────────────
+fixtures = [
+    "Custom Field",
+    "Property Setter",
+    "Print Format",
+    "Role",
+    "Notification",
+    "Workflow",
+    "Workflow State",
+    "Workflow Action Master",
+    {"dt": "Workspace", "filters": [["module", "=", "Restaurant Operations"]]},
+    {"dt": "Report", "filters": [["module", "=", "Restaurant Operations"]]},
+]
 
-# Includes in <head>
-# ------------------
+# ─── Install / Uninstall Hooks ───────────────────────────────────
+after_install = "tajamoa.setup.install.after_install"
+after_migrate = "tajamoa.setup.install.after_migrate"
 
-# include js, css files in header of desk.html
-# app_include_css = "/assets/tajamoa/css/tajamoa.css"
-# app_include_js = "/assets/tajamoa/js/tajamoa.js"
+# ─── Document Events ─────────────────────────────────────────────
+doc_events = {
+    # عند تأكيد فاتورة POS — تحديث KDS
+    "POS Invoice": {
+        "on_submit": "tajamoa.restaurant_operations.api.kds.on_pos_submit",
+        "on_cancel": "tajamoa.restaurant_operations.api.kds.on_pos_cancel",
+    },
+    # عند استقبال طلب توصيل من جرب تك
+    "Sales Order": {
+        "after_insert": "tajamoa.restaurant_operations.api.jareb_webhook.on_order_created",
+    },
+}
 
-# include js, css files in header of web template
-# web_include_css = "/assets/tajamoa/css/tajamoa.css"
-# web_include_js = "/assets/tajamoa/js/tajamoa.js"
+# ─── Scheduled Tasks ─────────────────────────────────────────────
+scheduler_events = {
+    "cron": {
+        # مزامنة المنيو مع جرب تك كل ساعة
+        "0 * * * *": [
+            "tajamoa.restaurant_operations.api.menu_sync.auto_sync_all_brands"
+        ],
+        # تقرير مبيعات يومي الساعة 6:00 صباحاً
+        "0 6 * * *": [
+            "tajamoa.restaurant_operations.report.daily_summary.send_report"
+        ],
+        # تنظيف طلبات KDS المكتملة كل 24 ساعة
+        "0 2 * * *": [
+            "tajamoa.restaurant_operations.api.kds.cleanup_completed_orders"
+        ],
+    },
+    "all": [
+        # فحص الطلبات المتأخرة في KDS كل دقيقة
+        "tajamoa.restaurant_operations.api.kds.check_delayed_orders"
+    ],
+}
 
-# include custom scss in every website theme (without file extension ".scss")
-# website_theme_scss = "tajamoa/public/scss/website"
+# ─── Jinja Custom Functions ──────────────────────────────────────
+jinja = {
+    "methods": [
+        "tajamoa.restaurant_operations.utils.get_brand_logo",
+        "tajamoa.restaurant_operations.utils.format_order_items",
+    ]
+}
 
-# include js, css files in header of web form
-# webform_include_js = {"doctype": "public/js/doctype.js"}
-# webform_include_css = {"doctype": "public/css/doctype.css"}
+# ─── Permission Query Conditions (Row-level Security) ────────────
+permission_query_conditions = {
+    "Brand": "tajamoa.restaurant_operations.permissions.brand_query",
+    "Menu Item": "tajamoa.restaurant_operations.permissions.menu_item_query",
+    "Table Order": "tajamoa.restaurant_operations.permissions.table_order_query",
+}
 
-# include js in page
-# page_js = {"page" : "public/js/file.js"}
-
-# include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
-# doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
-# doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
-
-# Svg Icons
-# ------------------
-# include app icons in desk
-# app_include_icons = "tajamoa/public/icons.svg"
-
-# Home Pages
-# ----------
-
-# application home page (will override Website Settings)
-# home_page = "login"
-
-# website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
-
-# Generators
-# ----------
-
-# automatically create page for each record of this doctype
-# website_generators = ["Web Page"]
-
-# automatically load and sync documents of this doctype from downstream apps
-# importable_doctypes = [doctype_1]
-
-# Jinja
-# ----------
-
-# add methods and filters to jinja environment
-# jinja = {
-# 	"methods": "tajamoa.utils.jinja_methods",
-# 	"filters": "tajamoa.utils.jinja_filters"
-# }
-
-# Installation
-# ------------
-
-# before_install = "tajamoa.install.before_install"
-# after_install = "tajamoa.install.after_install"
-
-# Uninstallation
-# ------------
-
-# before_uninstall = "tajamoa.uninstall.before_uninstall"
-# after_uninstall = "tajamoa.uninstall.after_uninstall"
-
-# Integration Setup
-# ------------------
-# To set up dependencies/integrations with other apps
-# Name of the app being installed is passed as an argument
-
-# before_app_install = "tajamoa.utils.before_app_install"
-# after_app_install = "tajamoa.utils.after_app_install"
-
-# Integration Cleanup
-# -------------------
-# To clean up dependencies/integrations with other apps
-# Name of the app being uninstalled is passed as an argument
-
-# before_app_uninstall = "tajamoa.utils.before_app_uninstall"
-# after_app_uninstall = "tajamoa.utils.after_app_uninstall"
-
-# Build
-# ------------------
-# To hook into the build process
-
-# after_build = "tajamoa.build.after_build"
-
-# Desk Notifications
-# ------------------
-# See frappe.core.notifications.get_notification_config
-
-# notification_config = "tajamoa.notifications.get_notification_config"
-
-# Permissions
-# -----------
-# Permissions evaluated in scripted ways
-
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
-
-# Document Events
-# ---------------
-# Hook on document methods and events
-
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
-
-# Scheduled Tasks
-# ---------------
-
-# scheduler_events = {
-# 	"all": [
-# 		"tajamoa.tasks.all"
-# 	],
-# 	"daily": [
-# 		"tajamoa.tasks.daily"
-# 	],
-# 	"hourly": [
-# 		"tajamoa.tasks.hourly"
-# 	],
-# 	"weekly": [
-# 		"tajamoa.tasks.weekly"
-# 	],
-# 	"monthly": [
-# 		"tajamoa.tasks.monthly"
-# 	],
-# }
-
-# Testing
-# -------
-
-# before_tests = "tajamoa.install.before_tests"
-
-# Extend DocType Class
-# ------------------------------
-#
-# Specify custom mixins to extend the standard doctype controller.
-# extend_doctype_class = {
-# 	"Task": "tajamoa.custom.task.CustomTaskMixin"
-# }
-
-# Overriding Methods
-# ------------------------------
-#
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "tajamoa.event.get_events"
-# }
-#
-# each overriding function accepts a `data` argument;
-# generated from the base implementation of the doctype dashboard,
-# along with any modifications made in other Frappe apps
-# override_doctype_dashboards = {
-# 	"Task": "tajamoa.task.get_dashboard_data"
-# }
-
-# exempt linked doctypes from being automatically cancelled
-#
-# auto_cancel_exempted_doctypes = ["Auto Repeat"]
-
-# Ignore links to specified DocTypes when deleting documents
-# -----------------------------------------------------------
-
-# ignore_links_on_delete = ["Communication", "ToDo"]
-
-# Request Events
-# ----------------
-# before_request = ["tajamoa.utils.before_request"]
-# after_request = ["tajamoa.utils.after_request"]
-
-# Job Events
-# ----------
-# before_job = ["tajamoa.utils.before_job"]
-# after_job = ["tajamoa.utils.after_job"]
-
-# User Data Protection
-# --------------------
-
-# user_data_fields = [
-# 	{
-# 		"doctype": "{doctype_1}",
-# 		"filter_by": "{filter_by}",
-# 		"redact_fields": ["{field_1}", "{field_2}"],
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_2}",
-# 		"filter_by": "{filter_by}",
-# 		"partial": 1,
-# 	},
-# 	{
-# 		"doctype": "{doctype_3}",
-# 		"strict": False,
-# 	},
-# 	{
-# 		"doctype": "{doctype_4}"
-# 	}
-# ]
-
-# Authentication and authorization
-# --------------------------------
-
-# auth_hooks = [
-# 	"tajamoa.auth.validate"
-# ]
-
-# Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
-
-# default_log_clearing_doctypes = {
-# 	"Logging DocType Name": 30  # days to retain logs
-# }
-
-# Translation
-# ------------
-# List of apps whose translatable strings should be excluded from this app's translations.
-# ignore_translatable_strings_from = []
-
+# ─── Override Standard Methods ────────────────────────────────────
+override_whitelisted_methods = {
+    # تخصيص طريقة إرجاع فاتورة POS لدعم الـ modifiers
+    "erpnext.accounts.doctype.pos_invoice.pos_invoice.make_return_doc": (
+        "tajamoa.restaurant_operations.overrides.pos_invoice.make_return_doc"
+    ),
+}

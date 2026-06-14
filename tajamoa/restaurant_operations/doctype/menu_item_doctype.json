@@ -1,0 +1,215 @@
+{
+  "name": "Menu Item",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "is_submittable": 0,
+  "track_changes": 1,
+  "naming_rule": "By fieldname",
+  "autoname": "field:item_code",
+  "title_field": "display_name_ar",
+  "description": "Menu item linking ERPNext Item to a Brand with modifiers",
+  "fields": [
+    {
+      "fieldname": "identity_section",
+      "fieldtype": "Section Break",
+      "label": "الهوية"
+    },
+    {
+      "fieldname": "item_code",
+      "fieldtype": "Link",
+      "label": "ERPNext Item",
+      "options": "Item",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "menu_section",
+      "fieldtype": "Link",
+      "label": "Menu Section",
+      "options": "Menu Section",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "col_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "display_name_ar",
+      "fieldtype": "Data",
+      "label": "اسم الصنف في المنيو (عربي)",
+      "reqd": 1,
+      "in_list_view": 1,
+      "translatable": 0
+    },
+    {
+      "fieldname": "display_name_en",
+      "fieldtype": "Data",
+      "label": "Item Name (English)",
+      "reqd": 1
+    },
+    {
+      "fieldname": "description_ar",
+      "fieldtype": "Small Text",
+      "label": "الوصف (عربي)"
+    },
+    {
+      "fieldname": "description_en",
+      "fieldtype": "Small Text",
+      "label": "Description (English)"
+    },
+    {
+      "fieldname": "media_section",
+      "fieldtype": "Section Break",
+      "label": "الصورة والوسائط"
+    },
+    {
+      "fieldname": "item_image",
+      "fieldtype": "Attach Image",
+      "label": "Item Image"
+    },
+    {
+      "fieldname": "thumbnail",
+      "fieldtype": "Attach Image",
+      "label": "Thumbnail (POS)"
+    },
+    {
+      "fieldname": "pricing_section",
+      "fieldtype": "Section Break",
+      "label": "التسعير"
+    },
+    {
+      "fieldname": "base_price",
+      "fieldtype": "Currency",
+      "label": "Base Price",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "tax_template",
+      "fieldtype": "Link",
+      "label": "Tax Template",
+      "options": "Item Tax Template"
+    },
+    {
+      "fieldname": "col_break_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "calories",
+      "fieldtype": "Float",
+      "label": "Calories (kcal)"
+    },
+    {
+      "fieldname": "prep_time_mins",
+      "fieldtype": "Int",
+      "label": "Prep Time (mins)",
+      "default": "10"
+    },
+    {
+      "fieldname": "modifiers_section",
+      "fieldtype": "Section Break",
+      "label": "المعدّلات (Modifiers)"
+    },
+    {
+      "fieldname": "modifier_groups",
+      "fieldtype": "Table",
+      "label": "Modifier Groups",
+      "options": "Menu Item Modifier Link",
+      "description": "Modifier groups attached to this menu item"
+    },
+    {
+      "fieldname": "availability_section",
+      "fieldtype": "Section Break",
+      "label": "الإتاحة"
+    },
+    {
+      "fieldname": "is_available",
+      "fieldtype": "Check",
+      "label": "متاح الآن",
+      "default": "1",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_featured",
+      "fieldtype": "Check",
+      "label": "مميز / Featured",
+      "default": "0"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "ترتيب العرض",
+      "default": "0"
+    },
+    {
+      "fieldname": "col_break_3",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "available_from",
+      "fieldtype": "Time",
+      "label": "متاح من الساعة"
+    },
+    {
+      "fieldname": "available_to",
+      "fieldtype": "Time",
+      "label": "متاح حتى الساعة"
+    },
+    {
+      "fieldname": "available_days",
+      "fieldtype": "Select",
+      "label": "أيام الإتاحة",
+      "options": "All Days\nWeekdays Only\nWeekends Only\nCustom"
+    },
+    {
+      "fieldname": "kitchen_section",
+      "fieldtype": "Section Break",
+      "label": "المطبخ"
+    },
+    {
+      "fieldname": "kitchen_station",
+      "fieldtype": "Select",
+      "label": "Kitchen Station",
+      "options": "Main Kitchen\nGrill\nCold Station\nBakery\nDesserts\nBeverages"
+    },
+    {
+      "fieldname": "kds_color",
+      "fieldtype": "Color",
+      "label": "KDS Display Color"
+    },
+    {
+      "fieldname": "jareb_section",
+      "fieldtype": "Section Break",
+      "label": "جرب تك"
+    },
+    {
+      "fieldname": "jareb_item_id",
+      "fieldtype": "Data",
+      "label": "Jareb Tech Item ID",
+      "read_only": 1,
+      "description": "Auto-filled after menu sync"
+    },
+    {
+      "fieldname": "last_synced",
+      "fieldtype": "Datetime",
+      "label": "Last Synced to Jareb",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Brand Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "Cashier", "read": 1}
+  ]
+}

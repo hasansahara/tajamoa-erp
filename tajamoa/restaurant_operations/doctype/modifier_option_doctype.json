@@ -1,0 +1,60 @@
+{
+  "name": "Modifier Option",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "istable": 1,
+  "track_changes": 0,
+  "fields": [
+    {
+      "fieldname": "option_name_ar",
+      "fieldtype": "Data",
+      "label": "الخيار (عربي)",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "option_name_en",
+      "fieldtype": "Data",
+      "label": "Option (English)",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "price_addition",
+      "fieldtype": "Currency",
+      "label": "Extra Price",
+      "default": "0",
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "is_default",
+      "fieldtype": "Check",
+      "label": "Default",
+      "default": "0",
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "is_available",
+      "fieldtype": "Check",
+      "label": "Available",
+      "default": "1",
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "sku",
+      "fieldtype": "Data",
+      "label": "SKU / Item Code",
+      "description": "اربط بـ Item في ERPNext لخصم المخزون"
+    },
+    {
+      "fieldname": "calories",
+      "fieldtype": "Float",
+      "label": "Calories (kcal)"
+    }
+  ]
+}

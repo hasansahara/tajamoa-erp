@@ -1,0 +1,112 @@
+{
+  "name": "Modifier Group",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "is_submittable": 0,
+  "track_changes": 1,
+  "naming_rule": "By fieldname",
+  "autoname": "field:modifier_group_code",
+  "title_field": "group_name_ar",
+  "fields": [
+    {
+      "fieldname": "group_name_ar",
+      "fieldtype": "Data",
+      "label": "اسم المجموعة (عربي)",
+      "reqd": 1,
+      "in_list_view": 1,
+      "translatable": 0
+    },
+    {
+      "fieldname": "group_name_en",
+      "fieldtype": "Data",
+      "label": "Group Name (English)",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "modifier_group_code",
+      "fieldtype": "Data",
+      "label": "Code",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "selection_section",
+      "fieldtype": "Section Break",
+      "label": "Selection Rules"
+    },
+    {
+      "fieldname": "selection_type",
+      "fieldtype": "Select",
+      "label": "Selection Type",
+      "options": "Single\nMultiple",
+      "default": "Single",
+      "reqd": 1
+    },
+    {
+      "fieldname": "is_required",
+      "fieldtype": "Check",
+      "label": "Required",
+      "default": "0"
+    },
+    {
+      "fieldname": "col_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "min_selection",
+      "fieldtype": "Int",
+      "label": "Minimum Selections",
+      "default": "0"
+    },
+    {
+      "fieldname": "max_selection",
+      "fieldtype": "Int",
+      "label": "Maximum Selections",
+      "default": "1"
+    },
+    {
+      "fieldname": "options_section",
+      "fieldtype": "Section Break",
+      "label": "Options"
+    },
+    {
+      "fieldname": "options",
+      "fieldtype": "Table",
+      "label": "Modifier Options",
+      "options": "Modifier Option",
+      "reqd": 1
+    },
+    {
+      "fieldname": "display_section",
+      "fieldtype": "Section Break",
+      "label": "Display"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "Display Order",
+      "default": "0"
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "Is Active",
+      "default": "1",
+      "in_list_view": 1
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Brand Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "Cashier", "read": 1}
+  ]
+}

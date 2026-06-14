@@ -1,0 +1,89 @@
+{
+  "name": "Menu Section",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "naming_rule": "By fieldname",
+  "autoname": "field:section_code",
+  "title_field": "section_name_ar",
+  "fields": [
+    {
+      "fieldname": "section_name_ar",
+      "fieldtype": "Data",
+      "label": "اسم القسم (عربي)",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_name_en",
+      "fieldtype": "Data",
+      "label": "Section Name (English)",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "section_code",
+      "fieldtype": "Data",
+      "label": "Code",
+      "reqd": 1,
+      "unique": 1
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "col_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "section_image",
+      "fieldtype": "Attach Image",
+      "label": "Section Image"
+    },
+    {
+      "fieldname": "section_icon",
+      "fieldtype": "Data",
+      "label": "Icon (emoji or class)",
+      "description": "مثال: 🥚 أو fa-egg"
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "ترتيب العرض",
+      "default": "0",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "is_active",
+      "fieldtype": "Check",
+      "label": "نشط",
+      "default": "1",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "time_based_section",
+      "fieldtype": "Section Break",
+      "label": "إتاحة حسب الوقت"
+    },
+    {
+      "fieldname": "available_from",
+      "fieldtype": "Time",
+      "label": "من الساعة"
+    },
+    {
+      "fieldname": "available_to",
+      "fieldtype": "Time",
+      "label": "حتى الساعة"
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1},
+    {"role": "Brand Manager", "read": 1, "write": 1, "create": 1},
+    {"role": "Cashier", "read": 1}
+  ]
+}

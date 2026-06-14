@@ -1,0 +1,96 @@
+name: Deploy Tajamoa to ERPNext Server
+
+on:
+  push:
+    branches:
+      - main        # deploy to production on merge
+      - staging     # deploy to staging env
+
+jobs:
+  # ─── 1. Code Quality Check ────────────────────────────────────────
+  lint:
+    name: Lint & Syntax Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install linting tools
+        run: pip install flake8 black isort
+
+      - name: Run flake8
+        run: flake8 tajamoa/ --max-line-length=120 --exclude=__pycache__
+
+      - name: Check Black formatting
+        run: black --check tajamoa/
+
+  # ─── 2. Deploy to Production ──────────────────────────────────────
+  deploy-production:
+    name: Deploy to Production
+    needs: lint
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    environment: production
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host:     ${{ secrets.PROD_SERVER_HOST }}
+          username: ${{ secrets.PROD_SERVER_USER }}
+          key:      ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          port:     22
+          script: |
+            set -e
+            echo "→ Pulling latest code..."
+            cd /home/frappe/frappe-bench/apps/tajamoa
+            git fetch origin main
+            git reset --hard origin/main
+
+            echo "→ Running migration..."
+            cd /home/frappe/frappe-bench
+            bench --site ${{ secrets.PROD_SITE_NAME }} migrate
+
+            echo "→ Exporting fixtures..."
+            bench --site ${{ secrets.PROD_SITE_NAME }} export-fixtures --app tajamoa
+
+            echo "→ Building assets..."
+            bench build --app tajamoa
+
+            echo "→ Clearing cache..."
+            bench --site ${{ secrets.PROD_SITE_NAME }} clear-cache
+            bench --site ${{ secrets.PROD_SITE_NAME }} clear-website-cache
+
+            echo "→ Restarting services..."
+            bench restart
+
+            echo "✓ Production deployment complete!"
+
+  # ─── 3. Deploy to Staging ─────────────────────────────────────────
+  deploy-staging:
+    name: Deploy to Staging
+    needs: lint
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+
+    steps:
+      - name: Deploy to Staging via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host:     ${{ secrets.STAGING_SERVER_HOST }}
+          username: ${{ secrets.STAGING_SERVER_USER }}
+          key:      ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/frappe/frappe-bench/apps/tajamoa
+            git fetch origin staging
+            git reset --hard origin/staging
+            cd /home/frappe/frappe-bench
+            bench --site ${{ secrets.STAGING_SITE_NAME }} migrate
+            bench build --app tajamoa
+            bench --site ${{ secrets.STAGING_SITE_NAME }} clear-cache
+            bench restart
+            echo "✓ Staging deployment complete!"

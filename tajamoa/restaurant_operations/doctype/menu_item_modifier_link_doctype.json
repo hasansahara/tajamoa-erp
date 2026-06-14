@@ -1,0 +1,51 @@
+{
+  "name": "Menu Item Modifier Link",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "istable": 1,
+  "fields": [
+    {
+      "fieldname": "modifier_group",
+      "fieldtype": "Link",
+      "label": "Modifier Group",
+      "options": "Modifier Group",
+      "reqd": 1,
+      "in_list_view": 1,
+      "columns": 4
+    },
+    {
+      "fieldname": "group_name_ar",
+      "fieldtype": "Data",
+      "label": "الاسم",
+      "fetch_from": "modifier_group.group_name_ar",
+      "read_only": 1,
+      "in_list_view": 1,
+      "columns": 3
+    },
+    {
+      "fieldname": "is_required",
+      "fieldtype": "Check",
+      "label": "مطلوب",
+      "fetch_from": "modifier_group.is_required",
+      "in_list_view": 1,
+      "columns": 1
+    },
+    {
+      "fieldname": "override_required",
+      "fieldtype": "Check",
+      "label": "Override Required",
+      "default": "0",
+      "description": "Override the group's required setting for this item only",
+      "in_list_view": 1,
+      "columns": 2
+    },
+    {
+      "fieldname": "sort_order",
+      "fieldtype": "Int",
+      "label": "ترتيب",
+      "default": "0",
+      "in_list_view": 1,
+      "columns": 1
+    }
+  ]
+}

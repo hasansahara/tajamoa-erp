@@ -1,0 +1,225 @@
+{
+  "name": "Table Order",
+  "module": "Restaurant Operations",
+  "doctype": "DocType",
+  "is_submittable": 1,
+  "track_changes": 1,
+  "naming_rule": "Expression",
+  "autoname": "naming_series:",
+  "title_field": "name",
+  "fields": [
+    {
+      "fieldname": "naming_series",
+      "fieldtype": "Select",
+      "label": "Series",
+      "options": "ORD-.YYYY.-.MM.-.####",
+      "default": "ORD-.YYYY.-.MM.-.####",
+      "reqd": 1
+    },
+    {
+      "fieldname": "order_section",
+      "fieldtype": "Section Break",
+      "label": "Order Info"
+    },
+    {
+      "fieldname": "brand",
+      "fieldtype": "Link",
+      "label": "Brand",
+      "options": "Brand",
+      "reqd": 1,
+      "in_list_view": 1,
+      "search_index": 1
+    },
+    {
+      "fieldname": "order_type",
+      "fieldtype": "Select",
+      "label": "Order Type",
+      "options": "Dine-In\nTakeaway\nDelivery\nDrive-Through",
+      "default": "Dine-In",
+      "reqd": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "status",
+      "fieldtype": "Select",
+      "label": "Status",
+      "options": "Draft\nSent to Kitchen\nIn Preparation\nReady\nServed\nBilled\nCancelled",
+      "default": "Draft",
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "col_break_1",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "dining_table",
+      "fieldtype": "Link",
+      "label": "Table",
+      "options": "Dining Table",
+      "depends_on": "eval: doc.order_type === 'Dine-In'"
+    },
+    {
+      "fieldname": "cover_count",
+      "fieldtype": "Int",
+      "label": "Number of Guests",
+      "default": "1"
+    },
+    {
+      "fieldname": "cashier",
+      "fieldtype": "Link",
+      "label": "Cashier / Waiter",
+      "options": "User",
+      "default": "__user"
+    },
+    {
+      "fieldname": "pos_profile",
+      "fieldtype": "Link",
+      "label": "POS Profile",
+      "options": "POS Profile"
+    },
+    {
+      "fieldname": "delivery_section",
+      "fieldtype": "Section Break",
+      "label": "Delivery Info",
+      "depends_on": "eval: doc.order_type === 'Delivery'"
+    },
+    {
+      "fieldname": "delivery_source",
+      "fieldtype": "Select",
+      "label": "Delivery Source",
+      "options": "\nJareb Tech\nHunger Station\nJahez\nToter\nMrsool\nDirect"
+    },
+    {
+      "fieldname": "external_order_id",
+      "fieldtype": "Data",
+      "label": "External Order ID",
+      "description": "ID from the delivery platform"
+    },
+    {
+      "fieldname": "col_break_2",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "customer_name_delivery",
+      "fieldtype": "Data",
+      "label": "Customer Name"
+    },
+    {
+      "fieldname": "customer_phone",
+      "fieldtype": "Data",
+      "label": "Customer Phone"
+    },
+    {
+      "fieldname": "delivery_address",
+      "fieldtype": "Small Text",
+      "label": "Delivery Address"
+    },
+    {
+      "fieldname": "items_section",
+      "fieldtype": "Section Break",
+      "label": "Order Items"
+    },
+    {
+      "fieldname": "items",
+      "fieldtype": "Table",
+      "label": "Items",
+      "options": "Table Order Item",
+      "reqd": 1
+    },
+    {
+      "fieldname": "totals_section",
+      "fieldtype": "Section Break",
+      "label": "الإجماليات"
+    },
+    {
+      "fieldname": "subtotal",
+      "fieldtype": "Currency",
+      "label": "Subtotal",
+      "read_only": 1
+    },
+    {
+      "fieldname": "discount_amount",
+      "fieldtype": "Currency",
+      "label": "Discount"
+    },
+    {
+      "fieldname": "col_break_3",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "tax_amount",
+      "fieldtype": "Currency",
+      "label": "VAT (15%)",
+      "read_only": 1
+    },
+    {
+      "fieldname": "total",
+      "fieldtype": "Currency",
+      "label": "Grand Total",
+      "read_only": 1,
+      "in_list_view": 1
+    },
+    {
+      "fieldname": "payment_section",
+      "fieldtype": "Section Break",
+      "label": "الدفع"
+    },
+    {
+      "fieldname": "payment_method",
+      "fieldtype": "Select",
+      "label": "Payment Method",
+      "options": "Cash\nCard\nMada\nApple Pay\nOnline\nSplit"
+    },
+    {
+      "fieldname": "pos_invoice",
+      "fieldtype": "Link",
+      "label": "POS Invoice",
+      "options": "POS Invoice",
+      "read_only": 1
+    },
+    {
+      "fieldname": "notes",
+      "fieldtype": "Small Text",
+      "label": "Order Notes / Special Requests"
+    },
+    {
+      "fieldname": "timing_section",
+      "fieldtype": "Section Break",
+      "label": "التوقيتات"
+    },
+    {
+      "fieldname": "order_time",
+      "fieldtype": "Datetime",
+      "label": "Order Time",
+      "default": "Now",
+      "read_only": 1
+    },
+    {
+      "fieldname": "kitchen_sent_time",
+      "fieldtype": "Datetime",
+      "label": "Sent to Kitchen",
+      "read_only": 1
+    },
+    {
+      "fieldname": "col_break_4",
+      "fieldtype": "Column Break"
+    },
+    {
+      "fieldname": "ready_time",
+      "fieldtype": "Datetime",
+      "label": "Ready Time",
+      "read_only": 1
+    },
+    {
+      "fieldname": "closed_time",
+      "fieldtype": "Datetime",
+      "label": "Closed Time",
+      "read_only": 1
+    }
+  ],
+  "permissions": [
+    {"role": "System Manager", "read": 1, "write": 1, "create": 1, "delete": 1, "submit": 1, "cancel": 1},
+    {"role": "Brand Manager", "read": 1, "write": 1, "submit": 1, "cancel": 1},
+    {"role": "Cashier", "read": 1, "write": 1, "create": 1, "submit": 1}
+  ]
+}
