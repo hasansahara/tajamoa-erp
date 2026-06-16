@@ -1,0 +1,71 @@
+{
+ "actions": [],
+ "creation": "2024-01-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "istable": 1,
+ "field_order": [
+  "brand", "brand_name_ar", "display_order",
+  "tab_color", "is_default", "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "brand",
+   "fieldtype": "Link",
+   "label": "Brand",
+   "options": "Brand",
+   "reqd": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "brand_name_ar",
+   "fieldtype": "Data",
+   "label": "اسم البراند",
+   "fetch_from": "brand.brand_name_ar",
+   "read_only": 1,
+   "in_list_view": 1,
+   "columns": 3
+  },
+  {
+   "fieldname": "display_order",
+   "fieldtype": "Int",
+   "label": "ترتيب التبويب",
+   "default": "0",
+   "in_list_view": 1,
+   "columns": 2
+  },
+  {
+   "fieldname": "tab_color",
+   "fieldtype": "Color",
+   "label": "لون التبويب",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "is_default",
+   "fieldtype": "Check",
+   "label": "افتراضي",
+   "default": "0",
+   "in_list_view": 1,
+   "columns": 1
+  },
+  {
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "نشط",
+   "default": "1",
+   "in_list_view": 1,
+   "columns": 1
+  }
+ ],
+ "links": [],
+ "modified": "2024-01-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Restaurant Operations",
+ "name": "Branch Brand Link",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

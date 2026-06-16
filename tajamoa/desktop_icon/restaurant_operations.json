@@ -1,0 +1,20 @@
+{
+ "app": "tajamoa",
+ "bg_color": "gray",
+ "creation": "2026-06-14 21:14:51.091882",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "Restaurant Operations",
+ "link_to": "Restaurant Operations",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-06-14 21:17:11.027810",
+ "modified_by": "Administrator",
+ "name": "Restaurant Operations",
+ "owner": "Administrator",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}
